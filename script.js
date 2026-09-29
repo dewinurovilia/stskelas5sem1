@@ -8,7 +8,8 @@
    - Password setiap mapel
    - Timer 90 menit
    ========================================================= */
-
+const GOOGLE_SHEET_URL =
+  "https://script.google.com/macros/s/AKfycby6RCGkUVe9MleUXSrHZlS8r4tLBjLy0qHno5KM0ZqN34-XWSlZELz4wmBXbCRgAg3p/exec";
 
 /* =========================================================
    DAFTAR MATA PELAJARAN
@@ -1100,36 +1101,151 @@ function submitExam(autoSubmit = false) {
   );
 
 
-  /* =======================================================
-     NILAI PG
-     ======================================================= */
+/* =======================================================
+   KUMPULKAN JAWABAN UNTUK GOOGLE SHEET
+   ======================================================= */
 
-  let nilaiPG = 0;
+const jawabanPG = [];
 
+pg.forEach((item, index) => {
 
-  if (pg.length > 0) {
+  const nomor = item.no || index + 1;
 
-    nilaiPG =
-      Math.round(
-        (benarPG / pg.length) * 100
-      );
+  const selected =
+    document.querySelector(
+      `input[name="pg_${nomor}"]:checked`
+    );
+
+  if (selected) {
+
+    const pilihan =
+      ["A", "B", "C", "D"][
+        Number(selected.value)
+      ];
+
+    jawabanPG.push(
+      `${nomor}:${pilihan}`
+    );
+
+  } else {
+
+    jawabanPG.push(
+      `${nomor}:-`
+    );
 
   }
 
-
-  /* =======================================================
-     TAMPILKAN HASIL
-     ======================================================= */
-
-  const result =
-    document.getElementById("result");
+});
 
 
-  result.classList.remove(
-    "hidden"
+const jawabanIsian = [];
+
+isian.forEach((soal, index) => {
+
+  const input =
+    document.querySelector(
+      `input[name="isian_${index + 1}"]`
+    );
+
+  jawabanIsian.push(
+    `${index + 1}:${input ? input.value : ""}`
   );
 
+});
 
+
+const jawabanUraian = [];
+
+uraian.forEach((soal, index) => {
+
+  const input =
+    document.querySelector(
+      `textarea[name="uraian_${index + 1}"]`
+    );
+
+  jawabanUraian.push(
+    `${index + 1}:${input ? input.value : ""}`
+  );
+
+});
+
+
+/* =======================================================
+   DATA YANG DIKIRIM
+   ======================================================= */
+
+const dataKirim = {
+
+  nama:
+    document
+      .getElementById("studentName")
+      .value
+      .trim(),
+
+  kelas:
+    document
+      .getElementById("studentClass")
+      .value
+      .trim(),
+
+  mapel:
+    selectedSubject,
+
+  nilaiPG:
+    nilaiPG,
+
+  benarPG:
+    benarPG,
+
+  terjawabPG:
+    dijawabPG,
+
+  jawabanPG:
+    jawabanPG.join(" | "),
+
+  jawabanIsian:
+    jawabanIsian.join(" | "),
+
+  jawabanUraian:
+    jawabanUraian.join(" | ")
+
+};
+
+
+/* =======================================================
+   KIRIM KE GOOGLE SHEETS
+   ======================================================= */
+
+fetch(GOOGLE_SHEET_URL, {
+
+  method: "POST",
+
+  mode: "no-cors",
+
+  headers: {
+    "Content-Type":
+      "text/plain;charset=utf-8"
+  },
+
+  body:
+    JSON.stringify(dataKirim)
+
+})
+.then(() => {
+
+  console.log(
+    "Jawaban berhasil dikirim ke Google Sheet."
+  );
+
+})
+.catch(error => {
+
+  console.error(
+    "Gagal mengirim ke Google Sheet:",
+    error
+  );
+
+});
   const nama =
     document
       .getElementById("studentName")
