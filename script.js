@@ -2,65 +2,50 @@ const SUBJECTS = {
   "Bahasa Jawa": {
     password: "jawa123",
     duration: 30,
-    questions: [
-      {q:"Contoh soal Bahasa Jawa nomor 1. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:0},
-      {q:"Contoh soal Bahasa Jawa nomor 2. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:1},
-      {q:"Contoh soal Bahasa Jawa nomor 3. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:2}
-    ]
+    file: "soal/bahasa-jawa.js",
+    data: () => window.SOAL_BAHASA_JAWA
   },
+
   "Bahasa Indonesia": {
     password: "indo123",
     duration: 30,
-    questions: [
-      {q:"Contoh soal Bahasa Indonesia nomor 1. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:0},
-      {q:"Contoh soal Bahasa Indonesia nomor 2. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:1},
-      {q:"Contoh soal Bahasa Indonesia nomor 3. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:2}
-    ]
+    file: "soal/bahasa-indonesia.js",
+    data: () => window.SOAL_BAHASA_INDONESIA
   },
+
   "Bahasa Inggris": {
     password: "inggris123",
     duration: 30,
-    questions: [
-      {q:"Example English question 1. Replace with your question.", a:["Option A","Option B","Option C","Option D"], correct:0},
-      {q:"Example English question 2. Replace with your question.", a:["Option A","Option B","Option C","Option D"], correct:1},
-      {q:"Example English question 3. Replace with your question.", a:["Option A","Option B","Option C","Option D"], correct:2}
-    ]
+    file: "soal/bahasa-inggris.js",
+    data: () => window.SOAL_BAHASA_INGGRIS
   },
+
   "IPAS": {
     password: "ipas123",
     duration: 30,
-    questions: [
-      {q:"Contoh soal IPAS nomor 1. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:0},
-      {q:"Contoh soal IPAS nomor 2. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:1},
-      {q:"Contoh soal IPAS nomor 3. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:2}
-    ]
+    file: "soal/ipas.js",
+    data: () => window.SOAL_IPAS
   },
+
   "Matematika": {
     password: "mtk123",
     duration: 30,
-    questions: [
-      {q:"Contoh soal Matematika nomor 1. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:0},
-      {q:"Contoh soal Matematika nomor 2. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:1},
-      {q:"Contoh soal Matematika nomor 3. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:2}
-    ]
+    file: "soal/matematika.js",
+    data: () => window.SOAL_MATEMATIKA
   },
+
   "Pendidikan Pancasila": {
     password: "pancasila123",
     duration: 30,
-    questions: [
-      {q:"Contoh soal Pendidikan Pancasila nomor 1. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:0},
-      {q:"Contoh soal Pendidikan Pancasila nomor 2. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:1},
-      {q:"Contoh soal Pendidikan Pancasila nomor 3. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:2}
-    ]
+    file: "soal/pendidikan-pancasila.js",
+    data: () => window.SOAL_PENDIDIKAN_PANCASILA
   },
+
   "Seni Rupa": {
     password: "seni123",
     duration: 30,
-    questions: [
-      {q:"Contoh soal Seni Rupa nomor 1. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:0},
-      {q:"Contoh soal Seni Rupa nomor 2. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:1},
-      {q:"Contoh soal Seni Rupa nomor 3. Ganti dengan soal Anda.", a:["Pilihan A","Pilihan B","Pilihan C","Pilihan D"], correct:2}
-    ]
+    file: "soal/seni-rupa.js",
+    data: () => window.SOAL_SENI_RUPA
   }
 };
 
