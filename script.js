@@ -3,7 +3,7 @@ const SUBJECTS = {
     password: "jawa123",
     duration: 90,
     file: "soal/bahasa-jawa.js",
-    globalName: "SOAL_BAHASA_JAWA = "
+    globalName: "SOAL_BAHASA_JAWA"
   },
   "Bahasa Indonesia": {
     password: "indo123",
