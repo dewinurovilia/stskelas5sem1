@@ -1249,93 +1249,232 @@ document
    SUBMIT UJIAN
    ========================================================= */
 
-async function submitExam(
-  autoSubmit = false
-) {
+async function submitExam() {
+  if (examSubmitted) return;
 
-  clearInterval(
-    timerInterval
-  );
+  const data = SUBJECTS[selectedSubject];
 
-
-  const pg =
-    currentData.pilihanGanda ||
-    [];
-
-
-  const isian =
-    currentData.isian ||
-    [];
-
-
-  const uraian =
-    currentData.uraian ||
-    [];
-
-
-  /* =======================================================
-     NILAI PILIHAN GANDA
-     ======================================================= */
+  // =========================
+  // 1. KOREKSI PILIHAN GANDA
+  // =========================
+  const pg = data.pilihanGanda || [];
 
   let benarPG = 0;
+  let terjawabPG = 0;
 
-  let dijawabPG = 0;
+  const jawabanPG = [];
 
+  pg.forEach((q, index) => {
+    const pilihan = document.querySelector(
+      `input[name="pg_${index}"]:checked`
+    );
 
-  pg.forEach(
-    (item, index) => {
+    const jawabanSiswa = pilihan
+      ? pilihan.value.trim().toLowerCase()
+      : "";
 
-      const nomor =
-        item.no ||
-        index + 1;
+    const kunci = String(q.kunci || "")
+      .trim()
+      .toLowerCase();
 
-
-      const selected =
-        document.querySelector(
-          `input[name="pg_${nomor}"]:checked`
-        );
-
-
-      if (selected) {
-
-        dijawabPG++;
-
-
-        const pilihan =
-          [
-            "a",
-            "b",
-            "c",
-            "d"
-          ][
-            Number(
-              selected.value
-            )
-          ];
-
-
-        const kunci =
-          String(
-            item.kunci || ""
-          )
-            .toLowerCase()
-            .trim();
-
-
-        if (
-          pilihan ===
-          kunci
-        ) {
-
-          benarPG++;
-
-        }
-
-      }
-
+    if (jawabanSiswa !== "") {
+      terjawabPG++;
     }
-  );
 
+    if (jawabanSiswa === kunci) {
+      benarPG++;
+    }
+
+    jawabanPG.push(
+      `${q.no}:${jawabanSiswa ? jawabanSiswa.toUpperCase() : "-"}`
+    );
+  });
+
+  // Nilai PG
+  const nilaiPG = pg.length > 0
+    ? Math.round((benarPG / pg.length) * 100)
+    : 0;
+
+
+  // =========================
+  // 2. KOREKSI ISIAN OTOMATIS
+  // =========================
+  const isian = data.isian || [];
+
+  let benarIsian = 0;
+  let terjawabIsian = 0;
+
+  const jawabanIsian = [];
+
+  // Fungsi normalisasi:
+  // - huruf besar/kecil diabaikan
+  // - spasi awal/akhir diabaikan
+  // - spasi ganda di tengah dirapikan
+  function normalisasiJawaban(teks) {
+    return String(teks || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+  }
+
+  isian.forEach((q, index) => {
+    const input = document.querySelector(
+      `input[name="isian_${index}"]`
+    );
+
+    const jawabanSiswa = normalisasiJawaban(
+      input ? input.value : ""
+    );
+
+    // Ambil kunci dari kunciJawaban.isian
+    const kunciAsli =
+      data.kunciJawaban &&
+      data.kunciJawaban.isian
+        ? data.kunciJawaban.isian[q.no]
+        : "";
+
+    const kunci = normalisasiJawaban(kunciAsli);
+
+    if (jawabanSiswa !== "") {
+      terjawabIsian++;
+    }
+
+    if (jawabanSiswa !== "" && jawabanSiswa === kunci) {
+      benarIsian++;
+    }
+
+    jawabanIsian.push(
+      `${q.no}:${jawabanSiswa || "-"}`
+    );
+  });
+
+  // Nilai Isian
+  const nilaiIsian = isian.length > 0
+    ? Math.round((benarIsian / isian.length) * 100)
+    : 0;
+
+
+  // =========================
+  // 3. URAIAN
+  // =========================
+  const uraian = data.uraian || [];
+
+  let terjawabUraian = 0;
+  const jawabanUraian = [];
+
+  uraian.forEach((q, index) => {
+    const textarea = document.querySelector(
+      `textarea[name="uraian_${index}"]`
+    );
+
+    const jawaban = textarea
+      ? textarea.value.trim()
+      : "";
+
+    if (jawaban !== "") {
+      terjawabUraian++;
+    }
+
+    jawabanUraian.push(
+      `${q.no}:${jawaban || "-"}`
+    );
+  });
+
+
+  // =========================
+  // 4. DATA UNTUK GOOGLE SHEET
+  // =========================
+  const dataKirim = {
+    waktu: new Date().toLocaleString("id-ID"),
+
+    nama: document.getElementById("namaSiswa")
+      ? document.getElementById("namaSiswa").value
+      : "",
+
+    kelas: document.getElementById("kelasSiswa")
+      ? document.getElementById("kelasSiswa").value
+      : "",
+
+    mapel: selectedSubject,
+
+    // PG
+    nilaiPG: nilaiPG,
+    benarPG: benarPG,
+    terjawabPG: terjawabPG,
+
+    // ISIAN
+    nilaiIsian: nilaiIsian,
+    benarIsian: benarIsian,
+    terjawabIsian: terjawabIsian,
+
+    // URAIAN
+    terjawabUraian: terjawabUraian,
+
+    // Jawaban siswa
+    jawabanPG: jawabanPG.join(" | "),
+    jawabanIsian: jawabanIsian.join(" | "),
+    jawabanUraian: jawabanUraian.join(" | ")
+  };
+
+
+  // =========================
+  // 5. KIRIM KE GOOGLE SHEET
+  // =========================
+  try {
+    await fetch(GOOGLE_SHEET_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(dataKirim)
+    });
+
+  } catch (error) {
+    console.error("Gagal mengirim data:", error);
+  }
+
+
+  // =========================
+  // 6. TAMPILKAN HASIL
+  // =========================
+  examSubmitted = true;
+
+  const hasil = document.getElementById("hasil");
+
+  if (hasil) {
+    hasil.innerHTML = `
+      <div class="hasil-box">
+        <h2>Ujian Selesai</h2>
+
+        <p><strong>Pilihan Ganda</strong></p>
+        <p>Benar: ${benarPG} dari ${pg.length}</p>
+        <p>Nilai PG: <strong>${nilaiPG}</strong></p>
+
+        <hr>
+
+        <p><strong>Isian</strong></p>
+        <p>Benar: ${benarIsian} dari ${isian.length}</p>
+        <p>Nilai Isian: <strong>${nilaiIsian}</strong></p>
+
+        <hr>
+
+        <p>Jawaban uraian: ${terjawabUraian} dari ${uraian.length}</p>
+
+        <p class="terkirim">
+          Data jawaban telah dikirim ke rekap.
+        </p>
+      </div>
+    `;
+  }
+
+  // Matikan semua input
+  document
+    .querySelectorAll("input, textarea, button")
+    .forEach(el => {
+      el.disabled = true;
+    });
+}
 
   /* =======================================================
      HITUNG ISIAN TERJAWAB
