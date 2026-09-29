@@ -1,5 +1,17 @@
 /* =========================================================
-   SCRIPT UTAMA UJIAN ONLINE KELAS V
+   SCRIPT UJIAN ONLINE KELAS V
+   Mendukung:
+   - Bacaan
+   - Pilihan Ganda
+   - Isian
+   - Uraian
+   - Password setiap mapel
+   - Timer 90 menit
+   ========================================================= */
+
+
+/* =========================================================
+   DAFTAR MATA PELAJARAN
    ========================================================= */
 
 const SUBJECTS = {
@@ -64,11 +76,11 @@ let selectedSubject = null;
 let timeLeft = 0;
 let timerInterval = null;
 let loadedScripts = {};
-let currentQuestions = [];
+let currentData = null;
 
 
 /* =========================================================
-   ELEMENT HTML
+   ELEMENT
    ========================================================= */
 
 const subjectButtons =
@@ -93,17 +105,20 @@ const passwordError =
 
 Object.keys(SUBJECTS).forEach(subject => {
 
-  const btn = document.createElement("button");
+  const button =
+    document.createElement("button");
 
-  btn.className = "subject-btn";
+  button.className = "subject-btn";
 
-  btn.textContent = subject;
+  button.textContent = subject;
 
-  btn.onclick = () => {
-    openPassword(subject, btn);
+  button.onclick = () => {
+
+    openPassword(subject, button);
+
   };
 
-  subjectButtons.appendChild(btn);
+  subjectButtons.appendChild(button);
 
 });
 
@@ -112,17 +127,17 @@ Object.keys(SUBJECTS).forEach(subject => {
    BUKA PASSWORD
    ========================================================= */
 
-function openPassword(subject, btn) {
+function openPassword(subject, button) {
 
   selectedSubject = subject;
 
   document
     .querySelectorAll(".subject-btn")
-    .forEach(button => {
-      button.classList.remove("active");
+    .forEach(btn => {
+      btn.classList.remove("active");
     });
 
-  btn.classList.add("active");
+  button.classList.add("active");
 
   passwordTitle.textContent =
     `Password ${subject}`;
@@ -141,31 +156,39 @@ function openPassword(subject, btn) {
 
 
 /* =========================================================
-   TUTUP MODAL
+   TUTUP PASSWORD
    ========================================================= */
 
-document.getElementById("closeModal").onclick = () => {
+document
+  .getElementById("closeModal")
+  .onclick = () => {
 
-  modal.classList.add("hidden");
+    modal.classList.add("hidden");
 
-};
+  };
 
 
 /* =========================================================
-   TOMBOL PASSWORD
+   ENTER PASSWORD
    ========================================================= */
 
-document.getElementById("passwordBtn").onclick =
-  verifyPassword;
+document
+  .getElementById("passwordBtn")
+  .onclick = verifyPassword;
 
 
-passwordInput.addEventListener("keydown", event => {
+passwordInput.addEventListener(
+  "keydown",
+  event => {
 
-  if (event.key === "Enter") {
-    verifyPassword();
+    if (event.key === "Enter") {
+
+      verifyPassword();
+
+    }
+
   }
-
-});
+);
 
 
 /* =========================================================
@@ -193,6 +216,7 @@ async function verifyPassword() {
     passwordInput.select();
 
     return;
+
   }
 
 
@@ -205,15 +229,13 @@ async function verifyPassword() {
 
     await startExam(selectedSubject);
 
-  }
-
-  catch (error) {
+  } catch (error) {
 
     console.error(error);
 
     alert(
-      "File soal tidak dapat dibuka.\n\n" +
-      "Pastikan folder soal dan nama file sudah benar."
+      "Soal tidak dapat dimuat.\n\n" +
+      error.message
     );
 
   }
@@ -222,7 +244,7 @@ async function verifyPassword() {
 
 
 /* =========================================================
-   MEMUAT FILE SOAL
+   LOAD FILE SOAL
    ========================================================= */
 
 async function loadSubjectData(subject) {
@@ -231,7 +253,7 @@ async function loadSubjectData(subject) {
     SUBJECTS[subject];
 
 
-  /* Jika sudah tersedia */
+  /* Jika sudah dimuat */
 
   if (
     window[config.globalName]
@@ -242,41 +264,41 @@ async function loadSubjectData(subject) {
   }
 
 
-  /* Jika belum pernah dimuat */
+  /* Load file JS */
 
   if (!loadedScripts[subject]) {
 
-    await new Promise((resolve, reject) => {
+    await new Promise(
+      (resolve, reject) => {
 
-      const script =
-        document.createElement("script");
+        const script =
+          document.createElement("script");
 
-      script.src =
-        config.file;
+        script.src =
+          config.file;
 
-      script.onload = () => {
+        script.onload = () => {
 
-        loadedScripts[subject] = true;
+          loadedScripts[subject] = true;
 
-        resolve();
+          resolve();
 
-      };
+        };
 
+        script.onerror = () => {
 
-      script.onerror = () => {
+          reject(
+            new Error(
+              `File tidak ditemukan: ${config.file}`
+            )
+          );
 
-        reject(
-          new Error(
-            `File tidak ditemukan: ${config.file}`
-          )
-        );
+        };
 
-      };
+        document.body.appendChild(script);
 
-
-      document.body.appendChild(script);
-
-    });
+      }
+    );
 
   }
 
@@ -300,98 +322,7 @@ async function loadSubjectData(subject) {
 
 
 /* =========================================================
-   MENGUBAH DATA SOAL
-   ========================================================= */
-
-function convertQuestions(data) {
-
-
-  /* -------------------------------------------------------
-     FORMAT QUESTIONS
-     ------------------------------------------------------- */
-
-  if (
-    Array.isArray(data.questions) &&
-    data.questions.length > 0
-  ) {
-
-    return data.questions.map(item => {
-
-      return {
-
-        q: item.q,
-
-        a: item.a,
-
-        correct: Number(item.correct)
-
-      };
-
-    });
-
-  }
-
-
-  /* -------------------------------------------------------
-     FORMAT PILIHAN GANDA
-     Seperti file Bahasa Jawa Ibu
-     ------------------------------------------------------- */
-
-  if (
-    Array.isArray(data.pilihanGanda) &&
-    data.pilihanGanda.length > 0
-  ) {
-
-    return data.pilihanGanda.map(item => {
-
-      const kunci =
-        String(item.kunci)
-          .trim()
-          .toLowerCase();
-
-
-      let correctIndex = -1;
-
-
-      if (kunci === "a") {
-        correctIndex = 0;
-      }
-
-      if (kunci === "b") {
-        correctIndex = 1;
-      }
-
-      if (kunci === "c") {
-        correctIndex = 2;
-      }
-
-      if (kunci === "d") {
-        correctIndex = 3;
-      }
-
-
-      return {
-
-        q: item.soal,
-
-        a: item.pilihan,
-
-        correct: correctIndex
-
-      };
-
-    });
-
-  }
-
-
-  return [];
-
-}
-
-
-/* =========================================================
-   MEMULAI UJIAN
+   MULAI UJIAN
    ========================================================= */
 
 async function startExam(subject) {
@@ -400,90 +331,116 @@ async function startExam(subject) {
     SUBJECTS[subject];
 
 
-  const data =
+  currentData =
     await loadSubjectData(subject);
 
 
-  currentQuestions =
-    convertQuestions(data);
-
-
-  /* -------------------------------------------------------
-     CEK SOAL
-     ------------------------------------------------------- */
-
-  if (
-    !currentQuestions ||
-    currentQuestions.length === 0
-  ) {
-
-    alert(
-      `Soal ${subject} belum diisi.`
-    );
-
-    return;
-
-  }
-
-
-  /* -------------------------------------------------------
-     TAMPILKAN FORM SISWA
-     ------------------------------------------------------- */
+  /* Tampilkan kartu siswa */
 
   document
     .getElementById("studentCard")
     .classList.remove("hidden");
 
 
+  /* Tampilkan kartu ujian */
+
   document
     .getElementById("examCard")
     .classList.remove("hidden");
 
 
+  /* Judul */
+
   document
     .getElementById("examTitle")
     .textContent =
+      currentData.nama ||
       subject;
+
+
+  /* Info */
+
+  let jumlahPG = 0;
+  let jumlahIsian = 0;
+  let jumlahUraian = 0;
+
+
+  if (
+    Array.isArray(
+      currentData.pilihanGanda
+    )
+  ) {
+
+    jumlahPG =
+      currentData.pilihanGanda.length;
+
+  }
+
+
+  if (
+    Array.isArray(
+      currentData.isian
+    )
+  ) {
+
+    jumlahIsian =
+      currentData.isian.length;
+
+  }
+
+
+  if (
+    Array.isArray(
+      currentData.uraian
+    )
+  ) {
+
+    jumlahUraian =
+      currentData.uraian.length;
+
+  }
 
 
   document
     .getElementById("examInfo")
     .textContent =
-      `${currentQuestions.length} soal • Waktu ${config.duration} menit`;
+      `${jumlahPG} Pilihan Ganda • ` +
+      `${jumlahIsian} Isian • ` +
+      `${jumlahUraian} Uraian • ` +
+      `Waktu ${config.duration} menit`;
 
+
+  /* Reset hasil */
 
   document
     .getElementById("result")
     .classList.add("hidden");
 
 
+  /* Aktifkan tombol */
+
   document
     .getElementById("submitBtn")
     .disabled = false;
 
 
-  /* -------------------------------------------------------
-     TAMPILKAN SOAL
-     ------------------------------------------------------- */
+  /* Tampilkan semua soal */
 
-  renderQuestions(currentQuestions);
+  renderAllQuestions(currentData);
 
 
-  /* -------------------------------------------------------
-     MULAI TIMER
-     ------------------------------------------------------- */
+  /* Timer */
 
   startTimer(config.duration);
 
 
-  /* -------------------------------------------------------
-     SCROLL KE SOAL
-     ------------------------------------------------------- */
+  /* Scroll */
 
   window.scrollTo({
 
     top:
-      document.getElementById("examCard")
+      document
+        .getElementById("examCard")
         .offsetTop - 20,
 
     behavior: "smooth"
@@ -494,10 +451,10 @@ async function startExam(subject) {
 
 
 /* =========================================================
-   MENAMPILKAN SOAL
+   RENDER SEMUA SOAL
    ========================================================= */
 
-function renderQuestions(questions) {
+function renderAllQuestions(data) {
 
   const box =
     document.getElementById("questions");
@@ -506,48 +463,360 @@ function renderQuestions(questions) {
   box.innerHTML = "";
 
 
-  questions.forEach((item, i) => {
+  /* =======================================================
+     PILIHAN GANDA
+     ======================================================= */
 
-    const div =
+  if (
+    Array.isArray(data.pilihanGanda) &&
+    data.pilihanGanda.length > 0
+  ) {
+
+    const title =
       document.createElement("div");
 
+    title.className =
+      "section-title";
 
-    div.className =
-      "question";
+    title.innerHTML =
+      "<h2>A. Pilihan Ganda</h2>";
 
-
-    div.innerHTML = `
-      <div class="question-title">
-        ${i + 1}. ${escapeHtml(item.q)}
-      </div>
-    `;
+    box.appendChild(title);
 
 
-    item.a.forEach((option, j) => {
+    renderPilihanGanda(
+      box,
+      data.pilihanGanda
+    );
 
-      div.innerHTML += `
+  }
 
-        <label class="option">
 
-          <input
-            type="radio"
-            name="q${i}"
-            value="${j}"
-          >
+  /* =======================================================
+     ISIAN
+     ======================================================= */
 
-          ${String.fromCharCode(65 + j)}.
-          ${escapeHtml(String(option))}
+  if (
+    Array.isArray(data.isian) &&
+    data.isian.length > 0
+  ) {
 
-        </label>
+    const title =
+      document.createElement("div");
+
+    title.className =
+      "section-title";
+
+    title.innerHTML =
+      "<h2>B. Isian</h2>";
+
+    box.appendChild(title);
+
+
+    renderIsian(
+      box,
+      data.isian
+    );
+
+  }
+
+
+  /* =======================================================
+     URAIAN
+     ======================================================= */
+
+  if (
+    Array.isArray(data.uraian) &&
+    data.uraian.length > 0
+  ) {
+
+    const title =
+      document.createElement("div");
+
+    title.className =
+      "section-title";
+
+    title.innerHTML =
+      "<h2>C. Uraian</h2>";
+
+    box.appendChild(title);
+
+
+    renderUraian(
+      box,
+      data.uraian
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER PILIHAN GANDA
+   ========================================================= */
+
+function renderPilihanGanda(
+  box,
+  questions
+) {
+
+  questions.forEach(
+    (item, index) => {
+
+      /*
+       * Tentukan bacaan sebelum kelompok soal.
+       */
+
+      if (
+        currentData.bacaan
+      ) {
+
+        if (index === 0) {
+
+          addBacaan(
+            box,
+            "Bacaan untuk soal 1–5",
+            currentData.bacaan.soal1_5
+          );
+
+        }
+
+        if (index === 5) {
+
+          addBacaan(
+            box,
+            "Bacaan untuk soal 6–10",
+            currentData.bacaan.soal6_10
+          );
+
+        }
+
+        if (index === 10) {
+
+          addBacaan(
+            box,
+            "Bacaan untuk soal 11–15",
+            currentData.bacaan.soal11_15
+          );
+
+        }
+
+        if (index === 15) {
+
+          addBacaan(
+            box,
+            "Bacaan untuk soal 16–20",
+            currentData.bacaan.soal16_20
+          );
+
+        }
+
+      }
+
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "question";
+
+
+      const nomor =
+        item.no || index + 1;
+
+
+      let html = `
+
+        <div class="question-title">
+
+          ${nomor}.
+          ${escapeHtml(item.soal)}
+
+        </div>
 
       `;
 
-    });
+
+      if (
+        Array.isArray(item.pilihan)
+      ) {
+
+        item.pilihan.forEach(
+          (option, optionIndex) => {
+
+            html += `
+
+              <label class="option">
+
+                <input
+                  type="radio"
+                  name="pg_${nomor}"
+                  value="${optionIndex}"
+                >
+
+                <span>
+                  ${String.fromCharCode(
+                    65 + optionIndex
+                  )}.
+                </span>
+
+                ${escapeHtml(option)}
+
+              </label>
+
+            `;
+
+          }
+        );
+
+      }
 
 
-    box.appendChild(div);
+      card.innerHTML = html;
 
-  });
+      box.appendChild(card);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   MENAMPILKAN BACAAN
+   ========================================================= */
+
+function addBacaan(
+  box,
+  judul,
+  isi
+) {
+
+  if (!isi) {
+    return;
+  }
+
+
+  const bacaan =
+    document.createElement("div");
+
+
+  bacaan.className =
+    "bacaan";
+
+
+  bacaan.innerHTML = `
+
+    <div class="bacaan-title">
+      ${escapeHtml(judul)}
+    </div>
+
+    <div class="bacaan-text">
+      ${formatText(isi)}
+    </div>
+
+  `;
+
+
+  box.appendChild(bacaan);
+
+}
+
+
+/* =========================================================
+   RENDER ISIAN
+   ========================================================= */
+
+function renderIsian(
+  box,
+  questions
+) {
+
+  questions.forEach(
+    (soal, index) => {
+
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "question isian";
+
+
+      card.innerHTML = `
+
+        <div class="question-title">
+
+          ${index + 1}.
+          ${escapeHtml(soal)}
+
+        </div>
+
+
+        <input
+          type="text"
+          class="answer-input"
+          name="isian_${index + 1}"
+          placeholder="Tuliskan jawaban..."
+          autocomplete="off"
+        >
+
+      `;
+
+
+      box.appendChild(card);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   RENDER URAIAN
+   ========================================================= */
+
+function renderUraian(
+  box,
+  questions
+) {
+
+  questions.forEach(
+    (soal, index) => {
+
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "question uraian";
+
+
+      card.innerHTML = `
+
+        <div class="question-title">
+
+          ${index + 1}.
+          ${escapeHtml(soal)}
+
+        </div>
+
+
+        <textarea
+          class="essay-input"
+          name="uraian_${index + 1}"
+          rows="5"
+          placeholder="Tuliskan jawaban..."
+        ></textarea>
+
+      `;
+
+
+      box.appendChild(card);
+
+    }
+  );
 
 }
 
@@ -579,7 +848,15 @@ function startTimer(minutes) {
 
       if (timeLeft <= 0) {
 
-        clearInterval(timerInterval);
+        clearInterval(
+          timerInterval
+        );
+
+
+        alert(
+          "Waktu ujian telah habis. Jawaban akan dikumpulkan."
+        );
+
 
         submitExam(true);
 
@@ -596,6 +873,15 @@ function startTimer(minutes) {
 
 function updateTimer() {
 
+  const timer =
+    document.getElementById("timer");
+
+
+  if (!timer) {
+    return;
+  }
+
+
   const minutes =
     Math.floor(timeLeft / 60)
       .toString()
@@ -608,9 +894,25 @@ function updateTimer() {
       .padStart(2, "0");
 
 
-  document.getElementById("timer")
-    .textContent =
-      `${minutes}:${seconds}`;
+  timer.textContent =
+    `${minutes}:${seconds}`;
+
+
+  /* Peringatan waktu */
+
+  if (timeLeft <= 300) {
+
+    timer.classList.add(
+      "warning"
+    );
+
+  } else {
+
+    timer.classList.remove(
+      "warning"
+    );
+
+  }
 
 }
 
@@ -619,8 +921,9 @@ function updateTimer() {
    TOMBOL KUMPULKAN
    ========================================================= */
 
-document.getElementById("submitBtn").onclick =
-  () => {
+document
+  .getElementById("submitBtn")
+  .onclick = () => {
 
 
     const nama =
@@ -636,12 +939,25 @@ document.getElementById("submitBtn").onclick =
         "Silakan isi nama siswa terlebih dahulu."
       );
 
+
       document
         .getElementById("studentName")
         .focus();
 
+
       return;
 
+    }
+
+
+    const yakin =
+      confirm(
+        "Apakah Anda yakin ingin mengumpulkan jawaban?"
+      );
+
+
+    if (!yakin) {
+      return;
     }
 
 
@@ -651,123 +967,319 @@ document.getElementById("submitBtn").onclick =
 
 
 /* =========================================================
-   KUMPULKAN JAWABAN
+   KUMPULKAN UJIAN
    ========================================================= */
 
-async function submitExam(auto = false) {
+function submitExam(autoSubmit = false) {
 
-  const data =
-    await loadSubjectData(selectedSubject);
-
-
-  const questions =
-    convertQuestions(data);
+  clearInterval(
+    timerInterval
+  );
 
 
-  let score = 0;
-
-  let answered = 0;
-
-
-  questions.forEach((item, i) => {
-
-    const selected =
-      document.querySelector(
-        `input[name="q${i}"]:checked`
-      );
+  const pg =
+    currentData.pilihanGanda || [];
 
 
-    if (selected) {
+  const isian =
+    currentData.isian || [];
 
-      answered++;
+
+  const uraian =
+    currentData.uraian || [];
 
 
-      if (
-        Number(selected.value) ===
-        Number(item.correct)
-      ) {
+  /* =======================================================
+     NILAI PILIHAN GANDA
+     ======================================================= */
 
-        score++;
+  let benarPG = 0;
+
+  let dijawabPG = 0;
+
+
+  pg.forEach(
+    (item, index) => {
+
+      const nomor =
+        item.no || index + 1;
+
+
+      const selected =
+        document.querySelector(
+          `input[name="pg_${nomor}"]:checked`
+        );
+
+
+      if (selected) {
+
+        dijawabPG++;
+
+
+        const pilihan =
+          ["a", "b", "c", "d"][
+            Number(selected.value)
+          ];
+
+
+        const kunci =
+          String(item.kunci)
+            .toLowerCase()
+            .trim();
+
+
+        if (
+          pilihan === kunci
+        ) {
+
+          benarPG++;
+
+        }
 
       }
 
     }
-
-  });
-
-
-  clearInterval(timerInterval);
+  );
 
 
-  const nilai =
-    Math.round(
-      (score / questions.length) * 100
-    );
+  /* =======================================================
+     HITUNG ISIAN
+     ======================================================= */
 
+  let dijawabIsian = 0;
+
+
+  isian.forEach(
+    (soal, index) => {
+
+      const input =
+        document.querySelector(
+          `input[name="isian_${index + 1}"]`
+        );
+
+
+      if (
+        input &&
+        input.value.trim() !== ""
+      ) {
+
+        dijawabIsian++;
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     HITUNG URAIAN
+     ======================================================= */
+
+  let dijawabUraian = 0;
+
+
+  uraian.forEach(
+    (soal, index) => {
+
+      const input =
+        document.querySelector(
+          `textarea[name="uraian_${index + 1}"]`
+        );
+
+
+      if (
+        input &&
+        input.value.trim() !== ""
+      ) {
+
+        dijawabUraian++;
+
+      }
+
+    }
+  );
+
+
+  /* =======================================================
+     NILAI PG
+     ======================================================= */
+
+  let nilaiPG = 0;
+
+
+  if (pg.length > 0) {
+
+    nilaiPG =
+      Math.round(
+        (benarPG / pg.length) * 100
+      );
+
+  }
+
+
+  /* =======================================================
+     TAMPILKAN HASIL
+     ======================================================= */
 
   const result =
     document.getElementById("result");
 
 
-  result.classList.remove("hidden");
+  result.classList.remove(
+    "hidden"
+  );
+
+
+  const nama =
+    document
+      .getElementById("studentName")
+      .value;
+
+
+  const kelas =
+    document
+      .getElementById("studentClass")
+      .value;
 
 
   result.innerHTML = `
 
-    <div>
-      <strong>
-        Ujian ${escapeHtml(selectedSubject)}
-        selesai.
-      </strong>
-    </div>
+    <h2>Hasil Ujian</h2>
 
-    <div>
-      Nama:
-      ${escapeHtml(
-        document.getElementById("studentName").value
-      )}
-    </div>
 
-    <div>
-      Kelas:
-      ${escapeHtml(
-        document.getElementById("studentClass").value
-      )}
-    </div>
+    <p>
+      <strong>Nama:</strong>
+      ${escapeHtml(nama)}
+    </p>
 
-    <div>
-      Jawaban terisi:
-      ${answered}
+
+    <p>
+      <strong>Kelas:</strong>
+      ${escapeHtml(kelas)}
+    </p>
+
+
+    <p>
+      <strong>Mapel:</strong>
+      ${escapeHtml(selectedSubject)}
+    </p>
+
+
+    <hr>
+
+
+    <p>
+      <strong>Pilihan Ganda</strong>
+    </p>
+
+
+    <p>
+      Terjawab:
+      ${dijawabPG}
       dari
-      ${questions.length}
-    </div>
+      ${pg.length}
+    </p>
 
-    <div>
-      Jawaban benar:
-      ${score}
+
+    <p>
+      Benar:
+      ${benarPG}
       dari
-      ${questions.length}
-    </div>
+      ${pg.length}
+    </p>
 
-    <div>
-      Nilai:
-      <strong>${nilai}</strong>
-    </div>
 
-    <div>
+    <p>
+      Nilai PG:
+      <strong>${nilaiPG}</strong>
+    </p>
+
+
+    <hr>
+
+
+    <p>
+      <strong>Isian</strong>
+    </p>
+
+
+    <p>
+      Terjawab:
+      ${dijawabIsian}
+      dari
+      ${isian.length}
+    </p>
+
+
+    <hr>
+
+
+    <p>
+      <strong>Uraian</strong>
+    </p>
+
+
+    <p>
+      Terjawab:
+      ${dijawabUraian}
+      dari
+      ${uraian.length}
+    </p>
+
+
+    <hr>
+
+
+    <p>
       ${
-        auto
-          ? "Waktu habis, jawaban dikumpulkan otomatis."
-          : "Jawaban berhasil dikumpulkan."
+        autoSubmit
+          ? "⏰ Waktu habis. Jawaban dikumpulkan otomatis."
+          : "✅ Jawaban berhasil dikumpulkan."
       }
-    </div>
+    </p>
 
   `;
 
 
+  /* Nonaktifkan tombol */
+
   document
     .getElementById("submitBtn")
     .disabled = true;
+
+
+  /* Kunci semua input */
+
+  document
+    .querySelectorAll(
+      "#questions input, #questions textarea"
+    )
+    .forEach(element => {
+
+      element.disabled = true;
+
+    });
+
+
+  /* Scroll ke hasil */
+
+  result.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+
+/* =========================================================
+   FORMAT TEKS BACAAN
+   ========================================================= */
+
+function formatText(text) {
+
+  return escapeHtml(text)
+    .replace(/\n\n/g, "<br><br>")
+    .replace(/\n/g, "<br>");
 
 }
 
@@ -780,19 +1292,26 @@ function escapeHtml(text) {
 
   return String(text).replace(
     /[&<>"']/g,
-    m => ({
+    function (char) {
 
-      "&": "&amp;",
+      const entities = {
 
-      "<": "&lt;",
+        "&": "&amp;",
 
-      ">": "&gt;",
+        "<": "&lt;",
 
-      '"': "&quot;",
+        ">": "&gt;",
 
-      "'": "&#039;"
+        '"': "&quot;",
 
-    }[m])
+        "'": "&#039;"
+
+      };
+
+
+      return entities[char];
+
+    }
   );
 
 }
