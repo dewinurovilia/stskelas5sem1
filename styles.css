@@ -1,31 +1,754 @@
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f6fb;color:#172033}
-.hero{background:linear-gradient(115deg,#315fe8,#7136ef);color:#fff;text-align:center;padding:24px 15px 38px}
-.hero h1{margin:0 0 10px;font-size:32px}.hero p{margin:4px;font-size:20px}
-.container{max-width:1280px;margin:40px auto;padding:0 18px}
-.card{background:#fff;border-radius:20px;padding:26px;box-shadow:0 8px 28px rgba(30,50,90,.09);margin-bottom:20px}
-.card h2{margin:0 0 25px;color:#2862e8;font-size:30px}
-.subjects{display:flex;gap:10px;flex-wrap:wrap}
-.subject-btn{border:0;background:#e7e9ed;padding:14px 19px;border-radius:13px;font-size:16px;font-weight:700;cursor:pointer;transition:.2s}
-.subject-btn:hover{transform:translateY(-2px);background:#dbe4ff}
-.subject-btn.active{background:#2862e8;color:#fff}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-label{font-size:18px;font-weight:700}
-input{display:block;width:100%;margin-top:10px;padding:12px;border:1px solid #9aa3b2;border-radius:7px;font-size:16px}
-.exam-head{display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid #e6e9ef;padding-bottom:15px;margin-bottom:20px}
-.exam-head h2{margin:0 0 5px}.exam-head p{margin:0;color:#687386}
-.timer{background:#172033;color:white;padding:10px 16px;border-radius:10px;font-weight:700;min-width:90px;text-align:center}
-.question{border:1px solid #e0e5ee;border-radius:14px;padding:18px;margin:14px 0;background:#fafbfe}
-.question-title{font-weight:700;margin-bottom:12px;line-height:1.5}
-.option{display:block;padding:8px 0;font-weight:400;font-size:16px;cursor:pointer}
-.option input{display:inline-block;width:auto;margin:0 8px 0 0}
-.submit-btn,.primary-btn{border:0;border-radius:10px;padding:13px 22px;background:#2862e8;color:#fff;font-weight:700;font-size:16px;cursor:pointer}
-.submit-btn{margin-top:15px}.submit-btn:hover,.primary-btn:hover{background:#174bc2}
-.result{margin-top:18px;padding:16px;border-radius:12px;background:#eaf2ff;font-weight:700}
-.modal{position:fixed;inset:0;background:rgba(10,20,45,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:99}
-.modal-box{position:relative;background:white;width:min(430px,100%);border-radius:20px;padding:30px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25)}
-.modal-box h3{margin:8px 0;font-size:25px}.modal-box p{color:#667085;line-height:1.5}
-.lock{font-size:42px}.close{position:absolute;right:15px;top:10px;border:0;background:none;font-size:30px;cursor:pointer;color:#777}
-.error{color:#d92d20;min-height:22px;margin-top:10px;font-size:14px}
-.hidden{display:none!important}
-@media(max-width:700px){.hero h1{font-size:25px}.hero p{font-size:17px}.card{padding:18px}.card h2{font-size:24px}.form-grid{grid-template-columns:1fr}.exam-head{align-items:flex-start;flex-direction:column}.subjects{display:grid;grid-template-columns:1fr 1fr}.subject-btn{font-size:14px}}
+/* =========================================================
+   STS KELAS 5 SEMESTER 1
+   SD NEGERI DUKOHKIDUL
+   Modern - Colorful - Responsive
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+    color: #263238;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,.75) 0 60px, transparent 61px),
+        radial-gradient(circle at 90% 20%, rgba(255,255,255,.5) 0 80px, transparent 81px),
+        linear-gradient(135deg, #e0f7fa 0%, #e8eaf6 45%, #fff3e0 100%);
+    background-attachment: fixed;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #eef2f7;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#42a5f5, #7e57c2);
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(#1e88e5, #5e35b1);
+}
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header,
+.header,
+.hero {
+    position: relative;
+    overflow: hidden;
+    color: white;
+    background: linear-gradient(135deg, #1565c0, #42a5f5 55%, #7e57c2);
+    border-radius: 0 0 32px 32px;
+    box-shadow: 0 8px 30px rgba(21, 101, 192, .20);
+}
+
+header::before,
+.header::before,
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.10);
+    top: -90px;
+    right: -50px;
+}
+
+header::after,
+.header::after,
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+    bottom: -80px;
+    left: -40px;
+}
+
+header h1,
+.header h1,
+.hero h1 {
+    position: relative;
+    z-index: 2;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: .5px;
+    text-align: center;
+}
+
+header p,
+.header p,
+.hero p {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.logo {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: white;
+    padding: 7px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+main {
+    width: min(1100px, 92%);
+    margin: 30px auto 50px;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.card,
+section,
+.box,
+.panel {
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(255,255,255,.8);
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(42, 67, 101, .10);
+    padding: 24px;
+    margin-bottom: 24px;
+    backdrop-filter: blur(8px);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.card:hover,
+.box:hover,
+.panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(42, 67, 101, .14);
+}
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+h2 {
+    color: #1565c0;
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+}
+
+h3 {
+    color: #37474f;
+    margin-bottom: 10px;
+}
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 2px solid #e3eaf2;
+    border-radius: 14px;
+    background: #fff;
+    color: #263238;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: all .2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 0 4px rgba(66,165,245,.13);
+}
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+button,
+.btn {
+    border: none;
+    border-radius: 13px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #1976d2, #42a5f5);
+    color: white;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(25,118,210,.20);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+button:hover,
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 9px 20px rgba(25,118,210,.28);
+    filter: brightness(1.04);
+}
+
+button:active,
+.btn:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   PASSWORD AREA
+   ========================================================= */
+
+.password-box,
+.login-box,
+.login-container {
+    max-width: 520px;
+    margin: 25px auto;
+    text-align: center;
+}
+
+.password-box input,
+.login-box input,
+.login-container input {
+    margin: 10px 0;
+}
+
+/* =========================================================
+   MATA PELAJARAN
+   ========================================================= */
+
+.subjects,
+.subject-list,
+.mapel-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.subject,
+.subject-card,
+.mapel-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 145px;
+    padding: 22px 18px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    background: linear-gradient(135deg, #42a5f5, #1565c0);
+    box-shadow: 0 8px 20px rgba(21,101,192,.18);
+    transition: all .25s ease;
+}
+
+.subject:nth-child(2),
+.subject-card:nth-child(2),
+.mapel-card:nth-child(2) {
+    background: linear-gradient(135deg, #66bb6a, #2e7d32);
+}
+
+.subject:nth-child(3),
+.subject-card:nth-child(3),
+.mapel-card:nth-child(3) {
+    background: linear-gradient(135deg, #ffca28, #ef6c00);
+}
+
+.subject:nth-child(4),
+.subject-card:nth-child(4),
+.mapel-card:nth-child(4) {
+    background: linear-gradient(135deg, #ab47bc, #6a1b9a);
+}
+
+.subject:nth-child(5),
+.subject-card:nth-child(5),
+.mapel-card:nth-child(5) {
+    background: linear-gradient(135deg, #26c6da, #00838f);
+}
+
+.subject:hover,
+.subject-card:hover,
+.mapel-card:hover {
+    transform: translateY(-7px) scale(1.015);
+    box-shadow: 0 16px 30px rgba(0,0,0,.18);
+}
+
+.subject::after,
+.subject-card::after,
+.mapel-card::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    right: -35px;
+    bottom: -45px;
+    background: rgba(255,255,255,.13);
+}
+
+.subject h3,
+.subject-card h3,
+.mapel-card h3 {
+    color: white;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.subject p,
+.subject-card p,
+.mapel-card p {
+    position: relative;
+    z-index: 2;
+    color: rgba(255,255,255,.9);
+}
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.icon,
+.subject-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    background: rgba(255,255,255,.20);
+    font-size: 24px;
+}
+
+/* =========================================================
+   STUDENT DATA
+   ========================================================= */
+
+.student-info,
+.student-data,
+.info-siswa {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.student-info label,
+.student-data label,
+.info-siswa label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #546e7a;
+}
+
+/* =========================================================
+   TIMER
+   ========================================================= */
+
+.timer {
+    position: sticky;
+    top: 12px;
+    z-index: 100;
+    width: fit-content;
+    min-width: 145px;
+    margin: 0 auto 20px;
+    padding: 12px 20px;
+    border-radius: 18px;
+    color: white;
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ef5350, #e53935);
+    box-shadow: 0 8px 22px rgba(229,57,53,.25);
+}
+
+.timer.warning {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.04);
+    }
+}
+
+/* =========================================================
+   SOAL
+   ========================================================= */
+
+.question,
+.soal,
+.question-card {
+    background: #ffffff;
+    border: 1px solid #e5ebf2;
+    border-left: 5px solid #42a5f5;
+    border-radius: 17px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 5px 18px rgba(0,0,0,.06);
+}
+
+.question-number,
+.nomor-soal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    margin-right: 8px;
+    border-radius: 50%;
+    color: white;
+    background: #1976d2;
+    font-weight: 800;
+}
+
+/* =========================================================
+   PILIHAN JAWABAN
+   ========================================================= */
+
+.option,
+.answer-option,
+.pilihan {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    margin-top: 9px;
+    border: 2px solid #edf1f5;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #fafcff;
+    transition: all .2s ease;
+}
+
+.option:hover,
+.answer-option:hover,
+.pilihan:hover {
+    border-color: #90caf9;
+    background: #e3f2fd;
+}
+
+.option input,
+.answer-option input,
+.pilihan input {
+    width: auto;
+}
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+.progress {
+    width: 100%;
+    height: 11px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #e8edf3;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #42a5f5, #7e57c2);
+    transition: width .3s ease;
+}
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+.result,
+.hasil,
+.score-box {
+    text-align: center;
+    padding: 30px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #e3f2fd, #ede7f6);
+}
+
+.score,
+.nilai {
+    font-size: clamp(3rem, 10vw, 5rem);
+    line-height: 1;
+    font-weight: 900;
+    color: #1565c0;
+    margin: 15px 0;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 14px;
+    background: white;
+}
+
+th {
+    padding: 13px;
+    color: white;
+    text-align: left;
+    background: #1976d2;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+tr:hover td {
+    background: #f5faff;
+}
+
+/* =========================================================
+   BADGE
+   ========================================================= */
+
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+/* =========================================================
+   ALERT
+   ========================================================= */
+
+.alert {
+    padding: 14px 17px;
+    border-radius: 13px;
+    margin: 12px 0;
+    background: #fff8e1;
+    color: #795548;
+    border-left: 5px solid #ffb300;
+}
+
+.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-left-color: #43a047;
+}
+
+.error {
+    background: #ffebee;
+    color: #c62828;
+    border-left-color: #e53935;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    margin-top: 50px;
+    padding: 25px 15px;
+    text-align: center;
+    color: #607d8b;
+    background: rgba(255,255,255,.75);
+    border-top: 1px solid rgba(255,255,255,.8);
+}
+
+footer strong {
+    color: #1565c0;
+}
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+.fade-in {
+    animation: fadeIn .5s ease both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    header,
+    .header,
+    .hero {
+        border-radius: 0 0 22px 22px;
+    }
+
+    main {
+        width: 94%;
+        margin-top: 20px;
+    }
+
+    .card,
+    section,
+    .box,
+    .panel {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .student-info,
+    .student-data,
+    .info-siswa {
+        grid-template-columns: 1fr;
+    }
+
+    .subjects,
+    .subject-list,
+    .mapel-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .subject,
+    .subject-card,
+    .mapel-card {
+        min-height: 125px;
+        padding: 17px 14px;
+        border-radius: 17px;
+    }
+
+    .subject h3,
+    .subject-card h3,
+    .mapel-card h3 {
+        font-size: .95rem;
+    }
+
+    .question,
+    .soal,
+    .question-card {
+        padding: 15px;
+    }
+
+    button,
+    .btn {
+        width: 100%;
+        padding: 13px;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    th,
+    td {
+        padding: 9px;
+    }
+}
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .subjects,
+    .subject-list,
+    .mapel-container {
+        grid-template-columns: 1fr;
+    }
+
+    header h1,
+    .header h1,
+    .hero h1 {
+        font-size: 1.45rem;
+    }
+
+    .timer {
+        min-width: 130px;
+        font-size: 1rem;
+    }
+}
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    header,
+    .header,
+    .hero {
+        box-shadow: none;
+    }
+
+    button,
+    .btn,
+    .timer {
+        display: none !important;
+    }
+
+    .card,
+    section,
+    .box,
+    .panel {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
