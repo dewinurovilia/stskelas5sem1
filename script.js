@@ -993,7 +993,56 @@ function judulBacaan(
 
 }
 
+/* =========================================================
+   RENDER GAMBAR SOAL
+   ========================================================= */
 
+function renderGambarSoal(gambar, alt = "Gambar soal") {
+
+  if (!gambar) {
+    return "";
+  }
+
+  const daftarGambar =
+    Array.isArray(gambar)
+      ? gambar
+      : [gambar];
+
+  return daftarGambar
+    .filter(Boolean)
+    .map(src => `
+
+      <div class="question-image-wrap">
+
+        <img
+          src="${escapeHtml(String(src))}"
+          alt="${escapeHtml(alt)}"
+          class="question-image"
+          loading="lazy"
+          onerror="
+            this.style.display='none';
+            this.nextElementSibling.style.display='block';
+          "
+        >
+
+        <div
+          class="image-error-text"
+          style="
+            display:none;
+            color:#c00;
+            font-size:13px;
+            margin:8px;
+          "
+        >
+          Gambar tidak dapat dimuat:
+          ${escapeHtml(String(src))}
+        </div>
+
+      </div>
+
+    `)
+    .join("");
+}
 /* =========================================================
    RENDER PILIHAN GANDA
    ========================================================= */
@@ -1065,18 +1114,23 @@ function renderPilihanGanda(
         "question";
 
 
-      let html = `
+let html = `
 
-        <div class="question-title">
+  <div class="question-title">
 
-          ${nomor}.
-          ${escapeHtml(
-            item.soal || ""
-          )}
+    ${nomor}.
+    ${escapeHtml(
+      item.soal || ""
+    )}
 
-        </div>
+  </div>
 
-      `;
+  ${renderGambarSoal(
+    item.gambar,
+    `Gambar untuk soal nomor ${nomor}`
+  )}
+
+`;
 
 
       /* ---------------------------------------------------
