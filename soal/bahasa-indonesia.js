@@ -1,4 +1,4 @@
-const SOAL_BAHASA_INDONESIA = {
+window.SOAL_BAHASA_INDONESIA = {
 
   nama: "Bahasa Indonesia Kelas V",
 
