@@ -6,7 +6,7 @@
 const SOAL_BAHASA_JAWA = {
   nama: "Bahasa Jawa Timur Kelas V",
   password: "jawa123",
-  duration: 30,
+  duration: 90,
 
   bacaan: {
     soal1_5: `Ajar Numpak Sepedha
