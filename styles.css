@@ -1,7 +1,6 @@
 /* =========================================================
-   STS KELAS 5 SEMESTER 1
-   SD NEGERI DUKOHKIDUL
-   Modern - Colorful - Responsive
+   ATS KELAS V - SD NEGERI DUKOHKIDUL
+   STYLES.CSS
    ========================================================= */
 
 * {
@@ -15,369 +14,256 @@ html {
 }
 
 body {
-    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+    font-family: "Segoe UI", Arial, sans-serif;
     min-height: 100vh;
     color: #263238;
     background:
-        radial-gradient(circle at 10% 10%, rgba(255,255,255,.75) 0 60px, transparent 61px),
-        radial-gradient(circle at 90% 20%, rgba(255,255,255,.5) 0 80px, transparent 81px),
-        linear-gradient(135deg, #e0f7fa 0%, #e8eaf6 45%, #fff3e0 100%);
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,.8) 0 70px, transparent 71px),
+        radial-gradient(circle at 90% 80%, rgba(255,255,255,.65) 0 90px, transparent 91px),
+        linear-gradient(135deg, #e3f2fd, #f3e5f5, #fff8e1);
     background-attachment: fixed;
 }
 
 /* =========================================================
-   SCROLLBAR
+   HIDDEN
    ========================================================= */
 
-::-webkit-scrollbar {
-    width: 9px;
-}
-
-::-webkit-scrollbar-track {
-    background: #eef2f7;
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(#42a5f5, #7e57c2);
-    border-radius: 20px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(#1e88e5, #5e35b1);
-}
-
-/* =========================================================
-   CONTAINER
-   ========================================================= */
-
-.container {
-    width: min(1100px, 92%);
-    margin: 0 auto;
+.hidden {
+    display: none !important;
 }
 
 /* =========================================================
    HEADER
    ========================================================= */
 
-header,
-.header,
 .hero {
     position: relative;
     overflow: hidden;
-    color: white;
-    background: linear-gradient(135deg, #1565c0, #42a5f5 55%, #7e57c2);
-    border-radius: 0 0 32px 32px;
-    box-shadow: 0 8px 30px rgba(21, 101, 192, .20);
+    width: 100%;
+    padding: 45px 20px 50px;
+    text-align: center;
+    color: #ffffff;
+    background: linear-gradient(
+        135deg,
+        #1565c0 0%,
+        #1976d2 45%,
+        #7e57c2 100%
+    );
+    border-radius: 0 0 35px 35px;
+    box-shadow: 0 10px 30px rgba(21, 101, 192, .22);
 }
 
-header::before,
-.header::before,
 .hero::before {
     content: "";
     position: absolute;
-    width: 220px;
-    height: 220px;
+    width: 230px;
+    height: 230px;
+    right: -80px;
+    top: -100px;
     border-radius: 50%;
     background: rgba(255,255,255,.10);
-    top: -90px;
-    right: -50px;
 }
 
-header::after,
-.header::after,
 .hero::after {
     content: "";
     position: absolute;
-    width: 160px;
-    height: 160px;
+    width: 170px;
+    height: 170px;
+    left: -65px;
+    bottom: -90px;
     border-radius: 50%;
     background: rgba(255,255,255,.08);
-    bottom: -80px;
-    left: -40px;
 }
 
-header h1,
-.header h1,
 .hero h1 {
     position: relative;
     z-index: 2;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-size: clamp(1.4rem, 4vw, 2.4rem);
     font-weight: 800;
     letter-spacing: .5px;
-    text-align: center;
+    margin-bottom: 12px;
 }
 
-header p,
-.header p,
 .hero p {
     position: relative;
     z-index: 2;
-    text-align: center;
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.hero p:first-of-type {
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 /* =========================================================
-   LOGO
+   MAIN
    ========================================================= */
 
-.logo {
-    width: 75px;
-    height: 75px;
-    object-fit: contain;
-    border-radius: 50%;
-    background: white;
-    padding: 7px;
-    box-shadow: 0 8px 20px rgba(0,0,0,.15);
-}
-
-/* =========================================================
-   MAIN CONTENT
-   ========================================================= */
-
-main {
-    width: min(1100px, 92%);
-    margin: 30px auto 50px;
+.container {
+    width: min(1050px, 92%);
+    margin: 30px auto 60px;
 }
 
 /* =========================================================
    CARD
    ========================================================= */
 
-.card,
-section,
-.box,
-.panel {
-    background: rgba(255,255,255,.92);
+.card {
+    width: 100%;
+    margin-bottom: 25px;
+    padding: 25px;
+    background: rgba(255,255,255,.94);
     border: 1px solid rgba(255,255,255,.8);
     border-radius: 22px;
-    box-shadow: 0 10px 30px rgba(42, 67, 101, .10);
-    padding: 24px;
-    margin-bottom: 24px;
-    backdrop-filter: blur(8px);
-    transition: transform .25s ease, box-shadow .25s ease;
-}
-
-.card:hover,
-.box:hover,
-.panel:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(42, 67, 101, .14);
+    box-shadow: 0 10px 30px rgba(55,71,79,.10);
+    backdrop-filter: blur(10px);
 }
 
 /* =========================================================
-   TITLE
+   SECTION TITLE
    ========================================================= */
 
-h2 {
+.card h2 {
+    margin-bottom: 18px;
     color: #1565c0;
-    font-size: 1.4rem;
-    margin-bottom: 14px;
-}
-
-h3 {
-    color: #37474f;
-    margin-bottom: 10px;
+    font-size: 1.35rem;
+    font-weight: 800;
 }
 
 /* =========================================================
-   INPUT
+   SUBJECT
    ========================================================= */
 
-input,
-select,
-textarea {
-    width: 100%;
-    padding: 13px 16px;
-    border: 2px solid #e3eaf2;
-    border-radius: 14px;
-    background: #fff;
-    color: #263238;
-    font-family: inherit;
-    font-size: 15px;
-    outline: none;
-    transition: all .2s ease;
+.subjects {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #42a5f5;
-    box-shadow: 0 0 0 4px rgba(66,165,245,.13);
-}
+/*
+   Jika script.js membuat button langsung,
+   style button mata pelajaran di sini.
+*/
 
-/* =========================================================
-   BUTTON
-   ========================================================= */
-
-button,
-.btn {
+.subjects button {
+    position: relative;
+    min-height: 125px;
+    padding: 20px 15px;
     border: none;
-    border-radius: 13px;
-    padding: 12px 20px;
-    background: linear-gradient(135deg, #1976d2, #42a5f5);
-    color: white;
-    font-family: inherit;
+    border-radius: 20px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #42a5f5, #1565c0);
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 6px 15px rgba(25,118,210,.20);
-    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-}
-
-button:hover,
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 9px 20px rgba(25,118,210,.28);
-    filter: brightness(1.04);
-}
-
-button:active,
-.btn:active {
-    transform: translateY(0);
-}
-
-/* =========================================================
-   PASSWORD AREA
-   ========================================================= */
-
-.password-box,
-.login-box,
-.login-container {
-    max-width: 520px;
-    margin: 25px auto;
-    text-align: center;
-}
-
-.password-box input,
-.login-box input,
-.login-container input {
-    margin: 10px 0;
-}
-
-/* =========================================================
-   MATA PELAJARAN
-   ========================================================= */
-
-.subjects,
-.subject-list,
-.mapel-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 18px;
-    margin-top: 20px;
-}
-
-.subject,
-.subject-card,
-.mapel-card {
-    position: relative;
+    box-shadow: 0 8px 18px rgba(21,101,192,.20);
     overflow: hidden;
-    min-height: 145px;
-    padding: 22px 18px;
-    border-radius: 20px;
-    color: white;
-    cursor: pointer;
-    background: linear-gradient(135deg, #42a5f5, #1565c0);
-    box-shadow: 0 8px 20px rgba(21,101,192,.18);
     transition: all .25s ease;
 }
 
-.subject:nth-child(2),
-.subject-card:nth-child(2),
-.mapel-card:nth-child(2) {
+.subjects button:nth-child(2) {
     background: linear-gradient(135deg, #66bb6a, #2e7d32);
 }
 
-.subject:nth-child(3),
-.subject-card:nth-child(3),
-.mapel-card:nth-child(3) {
+.subjects button:nth-child(3) {
     background: linear-gradient(135deg, #ffca28, #ef6c00);
 }
 
-.subject:nth-child(4),
-.subject-card:nth-child(4),
-.mapel-card:nth-child(4) {
+.subjects button:nth-child(4) {
     background: linear-gradient(135deg, #ab47bc, #6a1b9a);
 }
 
-.subject:nth-child(5),
-.subject-card:nth-child(5),
-.mapel-card:nth-child(5) {
+.subjects button:nth-child(5) {
     background: linear-gradient(135deg, #26c6da, #00838f);
 }
 
-.subject:hover,
-.subject-card:hover,
-.mapel-card:hover {
-    transform: translateY(-7px) scale(1.015);
-    box-shadow: 0 16px 30px rgba(0,0,0,.18);
+.subjects button:nth-child(6) {
+    background: linear-gradient(135deg, #ef5350, #c62828);
 }
 
-.subject::after,
-.subject-card::after,
-.mapel-card::after {
+.subjects button::after {
     content: "";
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
+    right: -25px;
+    bottom: -35px;
     border-radius: 50%;
-    right: -35px;
-    bottom: -45px;
-    background: rgba(255,255,255,.13);
+    background: rgba(255,255,255,.15);
 }
 
-.subject h3,
-.subject-card h3,
-.mapel-card h3 {
-    color: white;
-    font-size: 1.1rem;
-    position: relative;
-    z-index: 2;
+.subjects button:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 28px rgba(0,0,0,.18);
 }
 
-.subject p,
-.subject-card p,
-.mapel-card p {
-    position: relative;
-    z-index: 2;
-    color: rgba(255,255,255,.9);
+.subjects button:active {
+    transform: scale(.98);
 }
 
 /* =========================================================
-   ICON
+   STUDENT CARD
    ========================================================= */
 
-.icon,
-.subject-icon {
-    width: 48px;
-    height: 48px;
+.student-card {
+    animation: slideUp .35s ease;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.form-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #455a64;
+    font-size: .9rem;
+    font-weight: 700;
+}
+
+.form-grid input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 2px solid #e1e8ef;
+    border-radius: 13px;
+    outline: none;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    color: #263238;
+    transition: .2s;
+}
+
+.form-grid input:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 0 4px rgba(66,165,245,.12);
+}
+
+/* =========================================================
+   EXAM HEADER
+   ========================================================= */
+
+.exam-head {
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 14px;
-    margin-bottom: 12px;
-    background: rgba(255,255,255,.20);
-    font-size: 24px;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e8edf2;
 }
 
-/* =========================================================
-   STUDENT DATA
-   ========================================================= */
-
-.student-info,
-.student-data,
-.info-siswa {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.student-info label,
-.student-data label,
-.info-siswa label {
-    display: block;
+.exam-head h2 {
     margin-bottom: 6px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #546e7a;
+}
+
+.exam-head p {
+    color: #78909c;
+    font-size: .9rem;
 }
 
 /* =========================================================
@@ -385,370 +271,370 @@ button:active,
    ========================================================= */
 
 .timer {
-    position: sticky;
-    top: 12px;
-    z-index: 100;
-    width: fit-content;
-    min-width: 145px;
-    margin: 0 auto 20px;
-    padding: 12px 20px;
-    border-radius: 18px;
-    color: white;
+    flex-shrink: 0;
+    min-width: 125px;
+    padding: 12px 18px;
+    border-radius: 15px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ef5350, #d32f2f);
     text-align: center;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #ef5350, #e53935);
-    box-shadow: 0 8px 22px rgba(229,57,53,.25);
-}
-
-.timer.warning {
-    animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.04);
-    }
+    box-shadow: 0 7px 17px rgba(211,47,47,.20);
 }
 
 /* =========================================================
-   SOAL
+   QUESTIONS
    ========================================================= */
 
-.question,
-.soal,
-.question-card {
-    background: #ffffff;
-    border: 1px solid #e5ebf2;
-    border-left: 5px solid #42a5f5;
-    border-radius: 17px;
+#questions {
+    width: 100%;
+}
+
+.question {
     padding: 20px;
     margin-bottom: 18px;
-    box-shadow: 0 5px 18px rgba(0,0,0,.06);
+    border: 1px solid #e4ebf2;
+    border-left: 5px solid #42a5f5;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 5px 18px rgba(0,0,0,.05);
 }
 
-.question-number,
-.nomor-soal {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 34px;
-    height: 34px;
-    margin-right: 8px;
-    border-radius: 50%;
-    color: white;
-    background: #1976d2;
-    font-weight: 800;
+.question p {
+    line-height: 1.6;
 }
 
 /* =========================================================
-   PILIHAN JAWABAN
+   OPTION
    ========================================================= */
 
-.option,
-.answer-option,
-.pilihan {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.question label {
+    display: block;
     padding: 12px 14px;
     margin-top: 9px;
     border: 2px solid #edf1f5;
     border-radius: 12px;
-    cursor: pointer;
     background: #fafcff;
-    transition: all .2s ease;
+    cursor: pointer;
+    transition: .2s;
 }
 
-.option:hover,
-.answer-option:hover,
-.pilihan:hover {
+.question label:hover {
     border-color: #90caf9;
     background: #e3f2fd;
 }
 
-.option input,
-.answer-option input,
-.pilihan input {
+.question input[type="radio"],
+.question input[type="checkbox"] {
     width: auto;
+    margin-right: 8px;
 }
 
 /* =========================================================
-   PROGRESS
+   SUBMIT BUTTON
    ========================================================= */
 
-.progress {
+.submit-btn {
     width: 100%;
-    height: 11px;
-    overflow: hidden;
-    border-radius: 20px;
-    background: #e8edf3;
+    margin-top: 10px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 15px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #1976d2, #42a5f5);
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(25,118,210,.22);
+    transition: .25s;
 }
 
-.progress-bar {
-    height: 100%;
-    border-radius: 20px;
-    background: linear-gradient(90deg, #42a5f5, #7e57c2);
-    transition: width .3s ease;
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(25,118,210,.30);
 }
 
 /* =========================================================
    RESULT
    ========================================================= */
 
-.result,
-.hasil,
-.score-box {
-    text-align: center;
-    padding: 30px;
-    border-radius: 22px;
+.result {
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 18px;
     background: linear-gradient(135deg, #e3f2fd, #ede7f6);
-}
-
-.score,
-.nilai {
-    font-size: clamp(3rem, 10vw, 5rem);
-    line-height: 1;
-    font-weight: 900;
-    color: #1565c0;
-    margin: 15px 0;
+    text-align: center;
 }
 
 /* =========================================================
-   TABLE
+   MODAL
    ========================================================= */
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    overflow: hidden;
-    border-radius: 14px;
-    background: white;
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, .60);
+    backdrop-filter: blur(5px);
 }
 
-th {
-    padding: 13px;
-    color: white;
-    text-align: left;
-    background: #1976d2;
+.modal.hidden {
+    display: none !important;
 }
 
-td {
-    padding: 12px;
-    border-bottom: 1px solid #edf1f5;
+.modal-box {
+    position: relative;
+    width: min(420px, 100%);
+    padding: 32px 28px;
+    border-radius: 25px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 25px 70px rgba(0,0,0,.25);
+    animation: modalIn .25s ease;
 }
 
-tr:hover td {
-    background: #f5faff;
-}
-
-/* =========================================================
-   BADGE
-   ========================================================= */
-
-.badge {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 700;
+.lock {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    border-radius: 50%;
     background: #e3f2fd;
+    font-size: 32px;
+}
+
+.modal-box h3 {
+    margin-bottom: 10px;
     color: #1565c0;
+    font-size: 1.3rem;
+}
+
+.modal-box p {
+    margin-bottom: 18px;
+    color: #78909c;
+    line-height: 1.5;
+    font-size: .9rem;
+}
+
+.modal-box input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 2px solid #e0e7ef;
+    border-radius: 13px;
+    outline: none;
+    font-family: inherit;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.modal-box input:focus {
+    border-color: #42a5f5;
+    box-shadow: 0 0 0 4px rgba(66,165,245,.12);
 }
 
 /* =========================================================
-   ALERT
+   CLOSE BUTTON
    ========================================================= */
 
-.alert {
-    padding: 14px 17px;
-    border-radius: 13px;
-    margin: 12px 0;
-    background: #fff8e1;
-    color: #795548;
-    border-left: 5px solid #ffb300;
+.close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #f1f5f9;
+    color: #607d8b;
+    font-size: 25px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: none;
 }
 
-.success {
-    background: #e8f5e9;
-    color: #2e7d32;
-    border-left-color: #43a047;
+.close:hover {
+    background: #ffebee;
+    color: #e53935;
+    transform: rotate(90deg);
+    box-shadow: none;
 }
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.primary-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 13px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #1976d2, #42a5f5);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 7px 18px rgba(25,118,210,.22);
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
 
 .error {
-    background: #ffebee;
-    color: #c62828;
-    border-left-color: #e53935;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-footer {
-    margin-top: 50px;
-    padding: 25px 15px;
-    text-align: center;
-    color: #607d8b;
-    background: rgba(255,255,255,.75);
-    border-top: 1px solid rgba(255,255,255,.8);
-}
-
-footer strong {
-    color: #1565c0;
+    min-height: 20px;
+    margin-top: 10px;
+    color: #d32f2f;
+    font-size: .85rem;
+    font-weight: 600;
 }
 
 /* =========================================================
    ANIMATION
    ========================================================= */
 
-.fade-in {
-    animation: fadeIn .5s ease both;
-}
-
-@keyframes fadeIn {
+@keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(15px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(.92) translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
 /* =========================================================
-   MOBILE
+   TABLET
    ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
-    body {
-        font-size: 14px;
+    .subjects {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    header,
-    .header,
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .container {
+        width: 94%;
+    }
+}
+
+/* =========================================================
+   HP
+   ========================================================= */
+
+@media (max-width: 600px) {
+
     .hero {
-        border-radius: 0 0 22px 22px;
+        padding: 32px 16px 38px;
+        border-radius: 0 0 25px 25px;
     }
 
-    main {
+    .hero h1 {
+        font-size: 1.45rem;
+        line-height: 1.35;
+    }
+
+    .hero p {
+        font-size: .88rem;
+    }
+
+    .hero p:first-of-type {
+        font-size: 1rem;
+    }
+
+    .container {
         width: 94%;
         margin-top: 20px;
     }
 
-    .card,
-    section,
-    .box,
-    .panel {
+    .card {
         padding: 18px;
         border-radius: 18px;
     }
 
-    .student-info,
-    .student-data,
-    .info-siswa {
-        grid-template-columns: 1fr;
-    }
-
-    .subjects,
-    .subject-list,
-    .mapel-container {
+    .subjects {
         grid-template-columns: 1fr 1fr;
         gap: 12px;
     }
 
-    .subject,
-    .subject-card,
-    .mapel-card {
-        min-height: 125px;
-        padding: 17px 14px;
-        border-radius: 17px;
+    .subjects button {
+        min-height: 105px;
+        padding: 15px 10px;
+        font-size: .88rem;
+        border-radius: 16px;
     }
 
-    .subject h3,
-    .subject-card h3,
-    .mapel-card h3 {
-        font-size: .95rem;
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
     }
 
-    .question,
-    .soal,
-    .question-card {
+    .exam-head {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .timer {
+        width: 100%;
+    }
+
+    .question {
         padding: 15px;
     }
 
-    button,
-    .btn {
-        width: 100%;
-        padding: 13px;
-    }
-
-    table {
-        font-size: 13px;
-    }
-
-    th,
-    td {
-        padding: 9px;
+    .modal-box {
+        padding: 30px 20px;
+        border-radius: 20px;
     }
 }
 
 /* =========================================================
-   SMALL PHONE
+   HP KECIL
    ========================================================= */
 
-@media (max-width: 420px) {
+@media (max-width: 380px) {
 
-    .subjects,
-    .subject-list,
-    .mapel-container {
+    .subjects {
         grid-template-columns: 1fr;
     }
 
-    header h1,
-    .header h1,
+    .subjects button {
+        min-height: 85px;
+    }
+
     .hero h1 {
-        font-size: 1.45rem;
-    }
-
-    .timer {
-        min-width: 130px;
-        font-size: 1rem;
-    }
-}
-
-/* =========================================================
-   PRINT
-   ========================================================= */
-
-@media print {
-
-    body {
-        background: white;
-    }
-
-    header,
-    .header,
-    .hero {
-        box-shadow: none;
-    }
-
-    button,
-    .btn,
-    .timer {
-        display: none !important;
-    }
-
-    .card,
-    section,
-    .box,
-    .panel {
-        box-shadow: none;
-        border: 1px solid #ddd;
+        font-size: 1.3rem;
     }
 }
