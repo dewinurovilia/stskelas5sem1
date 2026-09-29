@@ -3,10 +3,10 @@
 // Isi soal dipertahankan sesuai dokumen sumber.
 // Jangan mengubah redaksi soal/kunci tanpa persetujuan.
 
-const SOAL_BAHASA_JAWA = {
+window.SOAL_BAHASA_JAWA = {
   nama: "Bahasa Jawa Timur Kelas V",
   password: "jawa123",
-  duration: 90,
+  duration: 30,
 
   bacaan: {
     soal1_5: `Ajar Numpak Sepedha
@@ -117,5 +117,3 @@ Ngerti aku tiba, kancaku Darto lan Suminto malah padha nggeguyu, beda karo aku s
   }
 };
 
-// Agar mudah dipakai oleh script.js utama:
-window.SOAL_BAHASA_JAWA = SOAL_BAHASA_JAWA;
