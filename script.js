@@ -80,8 +80,13 @@ const SUBJECTS = {
     duration: 90,
     file: "soal/seni-rupa.js",
     globalName: "SOAL_SENI_RUPA"
+  },
+"Literasi Digital": {
+    password: "literasi123",
+    duration: 90,
+    file: "soal/literasi-digital.js",
+    globalName: "SOAL_LITERASI_DIGITAL"
   }
-
 };
 
 
