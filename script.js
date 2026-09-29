@@ -81,6 +81,12 @@ const SUBJECTS = {
     file: "soal/seni-rupa.js",
     globalName: "SOAL_SENI_RUPA"
   },
+   "Pendidikan Agama Islam": {
+  password: "agama123",
+  duration: 90,
+  file: "soal/pendidikan-agama-islam.js",
+  globalName: "SOAL_PENDIDIKAN_AGAMA_ISLAM"
+},
 "Literasi Digital": {
     password: "literasi123",
     duration: 90,
