@@ -1,43 +1,43 @@
 const SUBJECTS = {
   "Bahasa Jawa": {
     password: "jawa123",
-    duration: 30,
+    duration: 90,
     file: "soal/bahasa-jawa.js",
     globalName: "SOAL_BAHASA_JAWA"
   },
   "Bahasa Indonesia": {
     password: "indo123",
-    duration: 30,
+    duration: 90,
     file: "soal/bahasa-indonesia.js",
     globalName: "SOAL_BAHASA_INDONESIA"
   },
   "Bahasa Inggris": {
     password: "inggris123",
-    duration: 30,
+    duration: 90,
     file: "soal/bahasa-inggris.js",
     globalName: "SOAL_BAHASA_INGGRIS"
   },
   "IPAS": {
     password: "ipas123",
-    duration: 30,
+    duration: 90,
     file: "soal/ipas.js",
     globalName: "SOAL_IPAS"
   },
   "Matematika": {
     password: "mtk123",
-    duration: 30,
+    duration: 90,
     file: "soal/matematika.js",
     globalName: "SOAL_MATEMATIKA"
   },
   "Pendidikan Pancasila": {
     password: "pancasila123",
-    duration: 30,
+    duration: 90,
     file: "soal/pendidikan-pancasila.js",
     globalName: "SOAL_PENDIDIKAN_PANCASILA"
   },
   "Seni Rupa": {
     password: "seni123",
-    duration: 30,
+    duration: 90,
     file: "soal/seni-rupa.js",
     globalName: "SOAL_SENI_RUPA"
   }
