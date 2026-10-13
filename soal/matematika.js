@@ -268,29 +268,62 @@ window.SOAL_MATEMATIKA = {
      ISIAN
      ========================================================= */
 
-  isian: [
+ 
+isian: [
 
-    "Nilai tempat angka 6 pada bilangan 26.051 adalah ….",
+  {
+    no: 1,
+    soal: "Nilai tempat angka 6 pada bilangan 26.051 adalah ...."
+  },
 
-    "Nora mempunyai satu lembar uang lima puluh ribuan dan dua lembar uang dua ribuan. Total uang Nora adalah ….",
+  {
+    no: 2,
+    soal: "Nora mempunyai satu lembar uang lima puluh ribuan dan dua lembar uang dua ribuan. Total uang Nora adalah ...."
+  },
 
-    "Ibu membeli 3 pak pensil warna. Jika harga satu pak pensil warna adalah Rp15.800,00, maka total belanjaan yang harus ibu bayarkan adalah ….",
+  {
+    no: 3,
+    soal: "Ibu membeli 3 pak pensil warna. Jika harga satu pak pensil warna adalah Rp15.800,00, maka total belanjaan yang harus ibu bayarkan adalah ...."
+  },
 
-    "Bilangan prima antara 15 dan 25 yaitu ....",
+  {
+    no: 4,
+    soal: "Bilangan prima antara 15 dan 25 yaitu ...."
+  },
 
-    "Faktorisasi prima dari 54 adalah ....",
+  {
+    no: 5,
+    soal: "Faktorisasi prima dari 54 adalah ...."
+  },
 
-    "KPK dari 12 dan 15 adalah ....",
+  {
+    no: 6,
+    soal: "KPK dari 12 dan 15 adalah ...."
+  },
 
-    "Nilai pecahan pada gambar di samping adalah ....",
+  {
+    no: 7,
+    soal: "Nilai pecahan pada gambar di samping adalah ....",
+    gambar: "soal/gambar/mtk/images2.png"
+  },
 
-    "6 2/10 ... 4 5/6. Tanda perbandingan yang tepat untuk melengkapi titik-titik adalah ....",
+  {
+    no: 8,
+    soal: "6 2/10 ... 4 5/6. Tanda perbandingan yang tepat untuk melengkapi titik-titik adalah ...."
+  },
 
-    "5/10 + 3/5 = ....",
+  {
+    no: 9,
+    soal: "5/10 + 3/5 = ...."
+  },
 
-    "3 1/3 − 4/9 = ...."
+  {
+    no: 10,
+    soal: "3 1/3 − 4/9 = ...."
+  }
 
-  ],
+],
+
 
 
   /* =========================================================
