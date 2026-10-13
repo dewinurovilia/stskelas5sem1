@@ -210,6 +210,7 @@ window.SOAL_MATEMATIKA = {
         "1/10"
       ],
       kunci: "c"
+      "gambar": "soal/gambar/mtk/images1.png"
     },
 
     {
@@ -282,6 +283,7 @@ window.SOAL_MATEMATIKA = {
     "KPK dari 12 dan 15 adalah ....",
 
     "Nilai pecahan pada gambar di samping adalah ....",
+    "gambar": "soal/gambar/mtk/images2.png"
 
     "6 2/10 ... 4 5/6. Tanda perbandingan yang tepat untuk melengkapi titik-titik adalah ....",
 
